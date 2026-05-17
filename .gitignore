@@ -1,6 +1,8 @@
 *.jou
 *.log
 *.str
+*.pb
+*.wcfg
 .Xil/
 vcs_lib/
 git_utils.tcl
@@ -9,9 +11,11 @@ git_utils.tcl
 /dsptest.hw/
 /dsptest.sim/
 /dsptest.ip_user_files/
+/xsim.dir/
 
 /dsptest.runs/
 /**/.gen/
+
 
 !*.xpr
 !/dsptest.srcs/
