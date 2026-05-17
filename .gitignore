@@ -16,7 +16,6 @@ git_utils.tcl
 /dsptest.runs/
 /**/.gen/
 
-
 !*.xpr
 !/dsptest.srcs/
 !*.xdc
