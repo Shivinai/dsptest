@@ -12,6 +12,7 @@ git_utils.tcl
 /dsptest.sim/
 /dsptest.ip_user_files/
 /xsim.dir/
+/dsptest.srcs/utils_1/
 
 /dsptest.runs/
 /**/.gen/
