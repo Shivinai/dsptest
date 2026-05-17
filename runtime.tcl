@@ -1,2 +1,2 @@
-run 62us
+run all
 exit

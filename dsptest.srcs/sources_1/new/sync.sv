@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 05/17/2026 06:09:21 PM
+// Create Date: 05/17/2026 06:52:09 PM
 // Design Name: 
-// Module Name: cdc
+// Module Name: toggle_sync
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,39 +20,34 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module cdc#(
-        parameter WIDTH = 32
-    )(
+module toggle_sync(
         input logic CLK_SRC,
         input logic RESET,
-        input logic [WIDTH-1:0] DIN,
-        input logic LOAD,
+        input logic PULSE_IN,
         input logic CLK_DEST,
         
-        output logic [WIDTH-1:0] DOUT,
-        output logic VALID
+        output logic PULSE_OUT
     );
+    
+logic TOGGLE;
+logic [2:0] SYNC;
 
-logic LOAD_SYNC;
-
-toggle_sync u1 (
-    .CLK_SRC(CLK_SRC),
-    .CLK_DEST(CLK_DEST),
-    .RESET(RESET),
-    .PULSE_IN(LOAD),
-    .PULSE_OUT(LOAD_SYNC)
-);
+always_ff @(posedge CLK_SRC or posedge RESET) begin
+    if (RESET) begin
+        TOGGLE <= 1'b0;
+    end else if (PULSE_IN) begin
+        TOGGLE <= ~TOGGLE;
+    end
+end
 
 always_ff @(posedge CLK_DEST or posedge RESET) begin
     if (RESET) begin
-        DOUT <= '0;
-        VALID <= 1'b0;
-    end else begin  
-        VALID <= LOAD_SYNC;
-        if (LOAD_SYNC) begin
-            DOUT <= DIN;
-        end
+        SYNC <= 3'b000;
+    end else begin
+        SYNC <= {SYNC[1:0], TOGGLE};
     end
 end
+
+assign PULSE_OUT = SYNC[2] ^ SYNC[1];
 
 endmodule
