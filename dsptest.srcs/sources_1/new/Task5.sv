@@ -35,7 +35,7 @@ module trafficlight_optimized#(
     );
     
     localparam MAX_TIME = (RED > GREEN) ? ((RED > YELLOW) ? RED : YELLOW) :  ((GREEN > YELLOW) ? GREEN : YELLOW);
-    localparam TIMER_WIDTH = $clog2(MAX_TIME);
+    localparam TIMER_WIDTH = $clog2(MAX_TIME);      // Разрядность счетчика, в отличии от предыдущей версии, теперь рассчитывается параметрически вместо фиксированной разрядности, соответственно потребление LUT и FF станет меньше
     localparam  BLINK_WIDTH = $clog2(BLINK);
     
     FSM_STATE_T STATE;
